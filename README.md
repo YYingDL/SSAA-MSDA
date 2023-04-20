@@ -5,7 +5,7 @@ Because the paper is still in the review stage, the code is not yet available.
 
 
 ### Requirements
-* `Python 3.6`
+* `Python 3.9`
 * `Pytorch 1.1.0`
 
 ### Evaluation
@@ -13,4 +13,4 @@ Because the paper is still in the review stage, the code is not yet available.
 ### Acknowledgements
 
 ### Contact
-If you have any problem about our code, feel free to contact ***@um.edu.cn or describe your problem in Issues.
+If you have any problem about our code, feel free to contact yc27932@connect.um.edu.mo or describe your problem in issues.
