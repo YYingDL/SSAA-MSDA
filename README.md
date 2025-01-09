@@ -7,4 +7,4 @@ https://ieeexplore.ieee.org/abstract/document/10509712
 * `Pytorch 1.1.0`
 
 ### Contact
-If you have any problem with our code, feel free to contact yc27932@connect.um.edu.mo or describe your problem in issues.
+If you have any problem with our code, feel free to contact yc27932@um.edu.mo or describe your problem in issues.
