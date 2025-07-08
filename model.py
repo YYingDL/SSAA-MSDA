@@ -163,6 +163,7 @@ class MSMDAERNet(nn.Module):
         att_loss = 0
         cls_loss = 0
         tcls_loss = 0
+        dis_loss = 0 
         if self.training == True:
             # common feature extractor
             data_src_CFE,att_src_CFE = self.sharedNet(data_src)
@@ -186,6 +187,11 @@ class MSMDAERNet(nn.Module):
                 pred_tgt_w = pred_tgt.mean(1)
                 max_prob, label_tgt = pred_tgt_w.max(1)  # (B)
                 label_tgt_mask = (max_prob >= 0.95).float()
+            
+            # discrepency loss
+            for i in range(len(pred_tgt)):
+                if j in range(i,len(pred_tgt)):
+                    disc_loss += torch.mean(torch.abs(pred_tgt[i] - pred_tgt[j]))
 
             for i in range(number_of_source):
                 # Each domian specific feature extractor
@@ -232,7 +238,7 @@ class MSMDAERNet(nn.Module):
                 self.src_ca_last2[i] = mean_src_ca2.detach()
 
 
-            return cls_loss+0.2*tcls_loss, mmd_loss, att_loss
+            return cls_loss+0.2*tcls_loss, mmd_loss+disc_loss, att_loss
 
         else:
             data_CFE,_= self.sharedNet(data_src)
