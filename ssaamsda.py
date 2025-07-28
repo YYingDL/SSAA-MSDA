@@ -325,7 +325,7 @@ if __name__ == '__main__':
     lr = args.lr
     logging.info('BS: {}, epoch: {}'.format(batch_size, epoch))
     momentum = 0.9
-    log_interval = 10
+    log_interval = 100
     iteration = 0
     if dataset_name == 'seed3':
         iteration = math.ceil(epoch * 3394 / batch_size)
