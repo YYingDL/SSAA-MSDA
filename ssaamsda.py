@@ -280,7 +280,7 @@ if __name__ == '__main__':
                         help='the normalization type used for data, "ele", "sample", "global" or "none"')
     parser.add_argument('--batch_size', type=int, default=32,
                         help='size for one batch, integer')
-    parser.add_argument('--epoch', type=int, default=200,
+    parser.add_argument('--epoch', type=int, default=1000,
                         help='training epoch, integer')
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate')
     parser.add_argument('--output_log_dir', default='./train/train_log', type=str,
