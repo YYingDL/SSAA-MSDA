@@ -238,7 +238,7 @@ class MSMDAERNet(nn.Module):
                 self.src_ca_last2[i] = mean_src_ca2.detach()
 
 
-            return cls_loss+0.2*tcls_loss, mmd_loss+0.1*disc_loss, att_loss
+            return cls_loss+0.2*tcls_loss, mmd_loss+0.3*disc_loss, att_loss
 
         else:
             data_CFE,_= self.sharedNet(data_src)
