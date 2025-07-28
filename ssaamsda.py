@@ -156,7 +156,8 @@ class SSAAMSDA():
         test_loss = 0
         correct = 0
         corrects = []
-        confusion = 0
+        confusion_pred = []
+        confusion_labels = []
         for i in range(len(self.source_loaders)):
             corrects.append(0)
         with torch.no_grad():
@@ -172,11 +173,13 @@ class SSAAMSDA():
                                                       dim=1), target.squeeze()).item()
                 pred = pred.data.max(1)[1]
                 correct += pred.eq(target.data.squeeze()).cpu().sum()
-                confusion += confusion_matrix(target.data.squeeze().cpu(), pred.cpu())
+                confusion_labels += pred.cpu()
+                confusion_pred += target.data.squeeze().cpu()
+
                 for j in range(len(self.source_loaders)):
                     pred = preds[j].data.max(1)[1]
                     corrects[j] += pred.eq(target.data.squeeze()).cpu().sum()
-
+            confusion = confusion_matrix(confusion_pred,confusion_labels)
             test_loss /= len(self.target_loader.dataset)
             writer.add_scalar("Test/Test loss", test_loss, i)
 
@@ -270,12 +273,12 @@ def cross_session(data, label, session_id, subject_id, category_number, batch_si
     return acc.item(), confusion
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='MS-MDAER parameters')
-    parser.add_argument('--dataset', type=str, default='seed4',
+    parser = argparse.ArgumentParser(description='SSAA-MSDA parameters')
+    parser.add_argument('--dataset', type=str, default='seed3',
                         help='the dataset used for MS-MDAER, "seed3" or "seed4"')
     parser.add_argument('--norm_type', type=str, default='ele',
                         help='the normalization type used for data, "ele", "sample", "global" or "none"')
-    parser.add_argument('--batch_size', type=int, default=16,
+    parser.add_argument('--batch_size', type=int, default=32,
                         help='size for one batch, integer')
     parser.add_argument('--epoch', type=int, default=200,
                         help='training epoch, integer')
